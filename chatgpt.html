@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BookStore</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+  background:#f4f6f9;
+  color:#333;
+}
+
+/* Top Bar */
+.top-bar{
+  background:#111;
+  color:#fff;
+  text-align:center;
+  padding:8px;
+  font-size:14px;
+}
+
+/* Header */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+  background:#fff;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 2px 5px rgba(0,0,0,0.05);
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+}
+
+nav{
+  display:flex;
+  gap:20px;
+}
+
+nav a{
+  text-decoration:none;
+  color:#333;
+  font-weight:500;
+}
+
+nav a:hover{
+  color:#007bff;
+}
+
+.header-icons{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.search{
+  padding:6px;
+  border:1px solid #ddd;
+  border-radius:4px;
+}
+
+.cart{
+  cursor:pointer;
+}
+
+.menu-toggle{
+  display:none;
+  font-size:24px;
+  cursor:pointer;
+}
+
+/* Hero */
+.hero{
+  background:linear-gradient(to right,#007bff,#00c6ff);
+  color:white;
+  text-align:center;
+  padding:100px 20px;
+}
+
+.hero h1{
+  font-size:42px;
+  margin-bottom:20px;
+}
+
+.hero p{
+  margin-bottom:20px;
+  font-size:18px;
+}
+
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  margin:5px;
+}
+
+.btn-primary{
+  background:#111;
+  color:white;
+}
+
+.btn-secondary{
+  background:white;
+  color:#007bff;
+}
+
+/* Sections */
+section{
+  padding:60px 40px;
+  text-align:center;
+}
+
+h2{
+  margin-bottom:30px;
+}
+
+/* Categories */
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:20px;
+}
+
+.category-card{
+  background:white;
+  padding:30px;
+  border-radius:10px;
+  box-shadow:0 4px 8px rgba(0,0,0,0.05);
+  transition:0.3s;
+  cursor:pointer;
+}
+
+.category-card:hover{
+  transform:translateY(-5px);
+}
+
+/* Products */
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+
+.product-card{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 4px 8px rgba(0,0,0,0.05);
+}
+
+.product-card button{
+  margin-top:10px;
+  background:#007bff;
+  color:white;
+}
+
+/* Offer */
+.offer{
+  background:#111;
+  color:white;
+  padding:50px 20px;
+}
+
+#countdown{
+  font-size:24px;
+  margin-top:10px;
+}
+
+/* Footer */
+footer{
+  background:#222;
+  color:white;
+  padding:50px 40px;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:20px;
+  text-align:left;
+}
+
+footer h4{
+  margin-bottom:10px;
+}
+
+footer p{
+  font-size:14px;
+  margin:5px 0;
+  cursor:pointer;
+}
+
+footer p:hover{
+  color:#007bff;
+}
+
+.copyright{
+  text-align:center;
+  margin-top:30px;
+  font-size:14px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  nav{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:70px;
+    right:20px;
+    background:white;
+    padding:20px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  nav.active{
+    display:flex;
+  }
+
+  .menu-toggle{
+    display:block;
+  }
+
+  .search{
+    display:none;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">📦 Free Shipping on orders over $50</div>
+
+<header>
+  <div class="logo">📚 BookStore</div>
+
+  <nav id="nav">
+    <a href="#">Home</a>
+    <a href="#">Categories</a>
+    <a href="#">Best Sellers</a>
+    <a href="#">New Arrivals</a>
+    <a href="#">Offers</a>
+    <a href="#">Contact</a>
+  </nav>
+
+  <div class="header-icons">
+    <input type="text" placeholder="Search books..." class="search">
+    <span>👤</span>
+    <span>❤️</span>
+    <span class="cart">🛒 <small id="cart-count">0</small></span>
+  </div>
+
+  <div class="menu-toggle" id="menu-toggle">☰</div>
+</header>
+
+<section class="hero">
+  <h1>Discover Your Next Favorite Book</h1>
+  <p>Thousands of books. Fast delivery. Best prices.</p>
+  <button class="btn-primary">Shop Now</button>
+  <button class="btn-secondary">Browse Categories</button>
+</section>
+
+<section>
+  <h2>Featured Categories</h2>
+  <div class="category-grid">
+    <div class="category-card">Fiction</div>
+    <div class="category-card">Business</div>
+    <div class="category-card">Science</div>
+    <div class="category-card">Self Development</div>
+    <div class="category-card">Children</div>
+    <div class="category-card">History</div>
+  </div>
+</section>
+
+<section>
+  <h2>Best Sellers</h2>
+  <div class="product-grid" id="product-grid"></div>
+</section>
+
+<section class="offer">
+  <h2>🔥 20% OFF on Business Books</h2>
+  <p>Offer ends in:</p>
+  <div id="countdown"></div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>About</h4>
+      <p>Our Story</p>
+      <p>Careers</p>
+    </div>
+    <div>
+      <h4>Help</h4>
+      <p>FAQs</p>
+      <p>Shipping</p>
+      <p>Returns</p>
+    </div>
+    <div>
+      <h4>Categories</h4>
+      <p>Fiction</p>
+      <p>Business</p>
+      <p>Science</p>
+    </div>
+    <div>
+      <h4>Follow Us</h4>
+      <p>Facebook</p>
+      <p>Instagram</p>
+      <p>Twitter</p>
+    </div>
+  </div>
+  <div class="copyright">© 2026 BookStore. All rights reserved.</div>
+</footer>
+
+<script>
+// Mobile Menu
+document.getElementById("menu-toggle").addEventListener("click",function(){
+  document.getElementById("nav").classList.toggle("active");
+});
+
+// Products
+const products=[
+  {title:"Atomic Habits",price:15},
+  {title:"Rich Dad Poor Dad",price:12},
+  {title:"The Alchemist",price:10},
+  {title:"Deep Work",price:18}
+];
+
+let cartCount=0;
+const grid=document.getElementById("product-grid");
+
+products.forEach(p=>{
+  const div=document.createElement("div");
+  div.classList.add("product-card");
+  div.innerHTML=`
+    <h4>${p.title}</h4>
+    <p>$${p.price}</p>
+    <button>Add to Cart</button>
+  `;
+  div.querySelector("button").addEventListener("click",()=>{
+    cartCount++;
+    document.getElementById("cart-count").innerText=cartCount;
+  });
+  grid.appendChild(div);
+});
+
+// Countdown
+const countdown=document.getElementById("countdown");
+const offerEnd=new Date();
+offerEnd.setDate(offerEnd.getDate()+3);
+
+setInterval(()=>{
+  const now=new Date().getTime();
+  const distance=offerEnd-now;
+
+  const days=Math.floor(distance/(1000*60*60*24));
+  const hours=Math.floor((distance/(1000*60*60))%24);
+  const minutes=Math.floor((distance/1000/60)%60);
+  const seconds=Math.floor((distance/1000)%60);
+
+  countdown.innerHTML=`${days}d ${hours}h ${minutes}m ${seconds}s`;
+},1000);
+</script>
+
+</body>
+</html>

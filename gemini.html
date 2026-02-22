@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Binding Thread | Your Next Great Adventure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #1A2238;
+            --accent: #D45113;
+            --bg-cream: #F4EFE6;
+            --text-dark: #2D2D2D;
+            --white: #FFFFFF;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* --- Header & Nav --- */
+        header {
+            background: var(--white);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .search-container {
+            flex: 0 1 400px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 0.6rem 1rem 0.6rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            background: var(--accent);
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            position: absolute;
+            top: -5px;
+            right: -10px;
+        }
+
+        nav.categories {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 0.8rem 0 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav.categories a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav.categories a:hover {
+            color: var(--accent);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary { background: var(--accent); color: white; margin-right: 1rem; }
+        .btn-secondary { background: var(--white); color: var(--primary); }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* --- Grid Layouts --- */
+        .section-container {
+            padding: 5rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .book-card {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .book-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .book-img {
+            width: 100%;
+            aspect-ratio: 2/3;
+            background: #eee;
+            margin-bottom: 1rem;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            background: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Mystery Section --- */
+        .blind-date {
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .newsletter input {
+            padding: 0.8rem;
+            width: 70%;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .newsletter button {
+            padding: 0.8rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            nav.categories { display: none; }
+            .blind-date { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-top">
+            <a href="#" class="logo">THE BINDING THREAD</a>
+            <div class="search-container">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" placeholder="Search by title, author, or ISBN...">
+            </div>
+            <div class="nav-icons">
+                <i data-lucide="map-pin"></i>
+                <i data-lucide="user"></i>
+                <i data-lucide="heart"></i>
+                <div style="position: relative;">
+                    <i data-lucide="shopping-bag"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+        <nav class="categories">
+            <a href="#">Fiction</a>
+            <a href="#">Non-Fiction</a>
+            <a href="#">Sci-Fi/Fantasy</a>
+            <a href="#">Kids</a>
+            <a href="#">Rare Finds</a>
+            <a href="#" style="color: var(--accent);">Bestsellers</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Your Next Great Adventure is Only One Page Away.</h1>
+                <p style="margin-bottom: 2rem; font-size: 1.1rem;">Explore our curated collection of forgotten classics and modern masterpieces.</p>
+                <a href="#shop" class="btn btn-primary">Shop This Week's Top 10</a>
+                <a href="#" class="btn btn-secondary">Take the Reading Quiz</a>
+            </div>
+        </section>
+
+        <section class="section-container" id="shop">
+            <h2 class="section-title">Trending on BookTok</h2>
+            <div class="book-grid">
+                <div class="book-card">
+                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=500" class="book-img" alt="Book Cover">
+                    <span class="tag">Bestseller</span>
+                    <h4>The Midnight Library</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Matt Haig</p>
+                    <p style="font-weight: bold; margin-top: 0.5rem;">$18.99</p>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.5rem;" onclick="addToCart()">Add to Cart</button>
+                </div>
+                <div class="book-card">
+                    <img src="https://images.unsplash.com/photo-1543004218-ee141104638a?q=80&w=500" class="book-img" alt="Book Cover">
+                    <span class="tag">Staff Pick</span>
+                    <h4>Song of Achilles</h4>
+                    <p style="font-size: 0.9rem; color: #666;">Madeline Miller</p>
+                    <p style="font-weight: bold; margin-top: 0.5rem;">$16.50</p>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.5rem;" onclick="addToCart()">Add to Cart</button>
+                </div>
+                </div>
+        </section>
+
+        <section class="section-container">
+            <div class="blind-date">
+                <div style="flex: 1;">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Blind Date with a Book</h2>
+                    <p style="font-style: italic; opacity: 0.9; margin-bottom: 1.5rem;">"Don't judge a book by its cover—literally."</p>
+                    <ul style="list-style: none; margin-bottom: 2rem;">
+                        <li>✨ Magic</li>
+                        <li>⚔️ Betrayal</li>
+                        <li>🇫🇷 1920s Paris</li>
+                    </ul>
+                    <button class="btn btn-secondary" onclick="addToCart()">Add to Cart - $12.99</button>
+                </div>
+                <div style="flex: 1; text-align: center;">
+                    <img src="https://images.unsplash.com/photo-1603162582426-a353ec74291a?q=80&w=500" alt="Wrapped Book" style="width: 250px; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="newsletter">
+                <h3 style="margin-bottom: 1rem;">Join the Chapter</h3>
+                <p style="margin-bottom: 1.5rem; opacity: 0.8;">Get 15% off your first order and weekly reading recommendations.</p>
+                <div style="display: flex;">
+                    <input type="email" placeholder="Your email address">
+                    <button>Join</button>
+                </div>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem;">Shop</h4>
+                <p><a href="#" style="color: white; text-decoration: none; opacity: 0.7;">Bestsellers</a></p>
+                <p><a href="#" style="color: white; text-decoration: none; opacity: 0.7;">New Arrivals</a></p>
+                <p><a href="#" style="color: white; text-decoration: none; opacity: 0.7;">Rare Finds</a></p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem;">Support</h4>
+                <p><a href="#" style="color: white; text-decoration: none; opacity: 0.7;">Shipping Policy</a></p>
+                <p><a href="#" style="color: white; text-decoration: none; opacity: 0.7;">Returns</a></p>
+                <p><a href="#" style="color: white; text-decoration: none; opacity: 0.7;">FAQs</a></p>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 1rem;">Connect</h4>
+                <div style="display: flex; gap: 1rem;">
+                    <i data-lucide="instagram"></i>
+                    <i data-lucide="twitter"></i>
+                    <i data-lucide="facebook"></i>
+                </div>
+            </div>
+        </div>
+        <hr style="opacity: 0.1; margin-bottom: 2rem;">
+        <p style="text-align: center; font-size: 0.8rem; opacity: 0.6;">&copy; 2026 The Binding Thread. Eco-friendly packaging used for all shipments.</p>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Simple Cart Logic
+        let cartCount = 0;
+        function addToCart() {
+            cartCount++;
+            document.getElementById('cart-count').innerText = cartCount;
+            
+            // Subtle feedback
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "Added!";
+            btn.style.background = "#2D5A27";
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = "";
+            }, 1500);
+        }
+
+        // Scroll animation for header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = "0.5rem 5%";
+            } else {
+                header.style.padding = "1rem 5%";
+            }
+        });
+    </script>
+</body>
+</html>
